@@ -62,7 +62,7 @@ const SearchParams = () => {
             onBlur={(e) => setBreed(e.target.value)}
           >
             <option />
-            {BREEDS.map((breed) => (
+            {breeds.map((breed) => (
               <option key={breed} value={breed}>
                 {breed}
               </option>
