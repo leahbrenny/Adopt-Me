@@ -1,10 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Pet from "./pet"
 import React from "react";
+import { render } from "react-dom";
 
 const ANIMALS = ["bird", "cat", "dog", "reptile", "fish"];
 
 const SearchParams = () => {
-  const [location, setLocation] = useState("Seattle, WA");
+  const [location, setLocation] = useState("");
+  const [animal, setAnimal] = useState("");
+  const [breed, setBreed] = useState("");
+  const [pets, setPets] = useState([]);
+  const breeds = [];
+
+  useEffect(() => {
+    requestPets();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  ansync function requestPets() {
+      const res = await fetch(
+           `http://pets-vs.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}`
+      );
+      const json = await res.json(); 
+
+      setPets(json.pets)
+  }
 
   return (
     <div className="search-params">
@@ -23,8 +42,8 @@ const SearchParams = () => {
           <select
             id="animal"
             value={animal}
-            onChange={(e) => updateAnimal(e.target.value)}
-            onBlur={(e) => updateAnimal(e.target.value)}
+            onChange={(e) => setAnimal(e.target.value)}
+            onBlur={(e) => setAnimal(e.target.value)}
           >
             <option />
             {ANIMALS.map((animal) => (
@@ -39,8 +58,8 @@ const SearchParams = () => {
           <select
             id="breed"
             value={breed}
-            onChange={(e) => updateBreed(e.target.value)}
-            onBlur={(e) => updateBreed(e.target.value)}
+            onChange={(e) => setBreed(e.target.value)}
+            onBlur={(e) => setBreed(e.target.value)}
           >
             <option />
             {BREEDS.map((breed) => (
@@ -52,6 +71,13 @@ const SearchParams = () => {
         </label>
         ;<button>Submit</button>
       </form>
+      {
+          pets.map(pet => (
+              <Pet name={pet.name} animal={pet.animal} breed={pet.breed}
+              key={pet.id}
+              />
+          ))
+      }
     </div>
   );
 };
