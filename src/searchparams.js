@@ -70,7 +70,7 @@ const SearchParams = () => {
             ))}
           </select>
         </label>
-        ;<button>Submit</button>
+        <button>Submit</button>
       </form>
       {pets.map((pet) => (
         <Pet
