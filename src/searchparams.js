@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useBreedList from './useBreedList';
+import useBreedList from "./useBreedList";
 import Pet from "./pet";
 import React from "react";
 import { render } from "react-dom";
@@ -28,7 +28,12 @@ const SearchParams = () => {
 
   return (
     <div className="search-params">
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          requestPets();
+        }}
+      >
         <label htmlFor="location">
           Location
           <input
