@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Pet from "./pet"
+import Pet from "./pet";
 import React from "react";
 import { render } from "react-dom";
 
@@ -16,13 +16,13 @@ const SearchParams = () => {
     requestPets();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  ansync function requestPets() {
-      const res = await fetch(
-           `http://pets-vs.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}`
-      );
-      const json = await res.json(); 
+  async function requestPets() {
+    const res = await fetch(
+      `http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}`
+    );
+    const json = await res.json();
 
-      setPets(json.pets)
+    setPets(json.pets);
   }
 
   return (
@@ -71,13 +71,14 @@ const SearchParams = () => {
         </label>
         ;<button>Submit</button>
       </form>
-      {
-          pets.map(pet => (
-              <Pet name={pet.name} animal={pet.animal} breed={pet.breed}
-              key={pet.id}
-              />
-          ))
-      }
+      {pets.map((pet) => (
+        <Pet
+          name={pet.name}
+          animal={pet.animal}
+          breed={pet.breed}
+          key={pet.id}
+        />
+      ))}
     </div>
   );
 };
