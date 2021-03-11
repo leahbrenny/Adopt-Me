@@ -20,6 +20,8 @@
         "node": true
     },
     "settings": {
-        ""
+        "react": {
+            "version": "detect"
+        }
     }
 }
